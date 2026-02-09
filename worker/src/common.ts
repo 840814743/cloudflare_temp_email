@@ -219,9 +219,9 @@ export const newAddress = async (
     name = name + "@" + domain;
     try {
         // Try insert with source_meta field first
-        const result = await c.env.DB.prepare(
-            `INSERT INTO address(name, source_meta) VALUES(?, ?)`
-        ).bind(name, sourceMeta).run();
+const result = await c.env.DB.prepare(
+    `INSERT INTO address(name, domain, source_meta) VALUES(?, ?, ?)`
+).bind(name, domain, sourceMeta).run();
         if (!result.success) {
             throw new Error(msgs.FailedCreateAddressMsg)
         }
@@ -230,9 +230,9 @@ export const newAddress = async (
         const message = (e as Error).message;
         // Fallback: source_meta field may not exist, try without it
         if (message && message.includes("source_meta")) {
-            const result = await c.env.DB.prepare(
-                `INSERT INTO address(name) VALUES(?)`
-            ).bind(name).run();
+const result = await c.env.DB.prepare(
+    `INSERT INTO address(name, domain) VALUES(?, ?)`
+).bind(name, domain).run();
             if (!result.success) {
                 throw new Error(msgs.FailedCreateAddressMsg)
             }
