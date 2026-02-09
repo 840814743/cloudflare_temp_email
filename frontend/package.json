@@ -16,7 +16,7 @@
     "deploy:telegram": "npm run build:telegram && wrangler pages deploy ./dist --branch production",
     "deploy:actions:telegram": "npm run build:telegram && wrangler pages deploy ./dist",
     "deploy:preview": "npm run build && wrangler pages deploy ./dist --branch preview",
-    "deploy": "npm run build && wrangler pages deploy ./dist --branch production",
+    "deploy": "npm run build && wrangler pages deploy ./dist --branch production --project-name=cloudflare-temp-email-a4m",
     "deploy:actions": "npm run build && wrangler pages deploy ./dist"
   },
   "dependencies": {
